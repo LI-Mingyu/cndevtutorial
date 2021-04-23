@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx
+spec:
+  selector:
+    matchLabels:
+      app: my-web
+      tier: front-end
+  replicas: 3
+  strategy:
+      # indicate which strategy we want for rolling update
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: my-web
+        tier: front-end
+        svc: my-svc
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:1.20-alpine-perl
+        ports:
+        - containerPort: 80

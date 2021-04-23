@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx
+spec:
+  selector:
+    matchLabels:
+      app: my-web
+      tier: front-end
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-web
+        tier: front-end
+        svc: my-svc
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:1.18-alpine-perl
+        ports:
+        - containerPort: 80
