@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: livenessprobe-tcp
+spec:
+  containers:
+  - name: ftp-server
+    image: teezily/ftpd:1.1.0
+    ports:
+    - containerPort: 21
+    livenessProbe:
+      tcpSocket:
+        port: 22
+      initialDelaySeconds: 10
+      periodSeconds: 10
+

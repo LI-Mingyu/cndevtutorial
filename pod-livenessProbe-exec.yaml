@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: livenessprobe-exec
+spec:
+  containers:
+  - name: centos
+    image: centos:7
+    command: ["bash","-c","while true;do date;sleep 10;done"]
+    livenessProbe:
+      exec:
+        command: 
+        - ls 
+        - /root/a
+      initialDelaySeconds: 30
+      periodSeconds: 5
+  restartPolicy: Never

@@ -7,6 +7,6 @@ spec:
   - name: centos
     image: centos:7
     command: ["bash","-c",
-      "sleep 60;
+      "sleep 40;
        ls /root/a"]
-  restartPolicy: Never
+  restartPolicy: OnFailure
