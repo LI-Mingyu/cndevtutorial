@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod-centos
+  labels:
+    os: centos
+spec:
+  containers:
+  - name: hello
+    image: centos:100 #write this wrong tag on purpose to demo an error
+    env:
+    - name: Test
+      value: "123456"
+    command: ["bash","-c","while true;do date;sleep 10;done"]

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 2containers
+spec:
+  containers:
+  - name: content-generator
+    image: bash:5.1
+    command: ["bash","-c","while true;do echo $(date) > /contentdir/index.html;sleep 1;done"]
+    volumeMounts:
+      - name: web-content
+        mountPath: /contentdir/
+  - name: web-server
+    image: nginx:1.19-alpine-perl
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: web-content
+        mountPath: /usr/share/nginx/html/
+  volumes:
+    - name: web-content
+      emptyDir: {}
