@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 2containers-restartpolicy-test
+spec:
+  containers:
+  - name: restartonfailure
+    image: centos:7
+    command: ["bash","-c",
+      "sleep 30;
+       ls /testfile/a"]
+    volumeMounts:
+      - name: testdir
+        mountPath: /testfile/
+  - name: neverrestart
+    image: centos:7
+    command: 
+    - "sleep"
+    - "300"
+    volumeMounts:
+      - name: testdir
+        mountPath: /testfile/
+  restartPolicy: OnFailure
+  volumes:
+    - name: testdir
+      emptyDir: {}

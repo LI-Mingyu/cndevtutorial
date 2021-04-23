@@ -5,8 +5,11 @@ metadata:
 spec:
   containers:
   - name: content-generator
-    image: bash:5.1
-    command: ["bash","-c","while true;do echo $(date) > /contentdir/index.html;sleep 1;done"]
+    image: centos:7
+    command: ["bash","-c",
+      "while true;
+       do echo $(date) > /contentdir/index.html;
+       sleep 1;done"]
     volumeMounts:
       - name: web-content
         mountPath: /contentdir/

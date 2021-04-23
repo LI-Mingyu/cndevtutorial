@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-restartpolicy
+spec:
+  containers:
+  - name: centos
+    image: centos:7
+    command: ["bash","-c",
+      "sleep 60;
+       ls /root/a"]
+  restartPolicy: Never
