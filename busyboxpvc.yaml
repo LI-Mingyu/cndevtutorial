@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc01
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox.withpvc
+  namespace: default
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28.4
+    command:
+      - sleep
+      - "3600"
+    volumeMounts:
+    - name: demo-persistent-storage
+      mountPath: /var/log/demo
+  volumes:
+  - name: demo-persistent-storage
+    persistentVolumeClaim:
+      claimName: pvc01
