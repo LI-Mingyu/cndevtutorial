@@ -8,5 +8,5 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: my-web
+    svc: my-svc
   type: NodePort
