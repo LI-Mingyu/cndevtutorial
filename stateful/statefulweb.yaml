@@ -36,6 +36,15 @@ spec:
         volumeMounts:
         - name: www
           mountPath: /usr/share/nginx/html
+      initContainers:
+      - name: init-index
+        image: busybox:1.28.4
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+        command: ["sh", "-c",
+                  "[[ -f /usr/share/nginx/html/index.html ]] && exit 0;
+                   echo $(date -R) > /usr/share/nginx/html/index.html"]
   volumeClaimTemplates:
   - metadata:
       name: www
