@@ -1,0 +1,58 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx2
+spec:
+  selector:
+    matchLabels:
+      app: nginx2
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx2
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.18
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: htmlroot
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: htmlroot
+        hostPath:
+          path: /tmp/static-content
+          type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx2
+  type: NodePort
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-hostpath
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28.4
+    command: ["sh","-c","while true;
+             do date;sleep 100;done"]
+    volumeMounts:
+    - name: htmlroot
+      mountPath: /root/data-hostpath
+  volumes:
+  - name: htmlroot
+    hostPath:
+      path: /tmp/static-content
+      type: DirectoryOrCreate
