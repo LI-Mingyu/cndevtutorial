@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.18
+        image: nginx:1.18-alpine-perl
         ports:
         - containerPort: 80
         volumeMounts:
