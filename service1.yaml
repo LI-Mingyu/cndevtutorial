@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-svc
+  name: static-web
 spec:
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
-    targetPort: 80
   selector:
-    svc: my-svc
+    app: my-web
