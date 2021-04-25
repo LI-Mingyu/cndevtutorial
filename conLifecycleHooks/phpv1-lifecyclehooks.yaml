@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lifecyclehook-demo-php
+spec:
+  selector:
+    matchLabels:
+      app: lifecyclehook-demo-php
+  replicas: 3
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: lifecyclehook-demo-php
+    spec:
+      containers:
+      - name: my-php
+        image: limingyu007/phpsleepdemo:v1
+#        readinessProbe:
+#          httpGet:
+#            port: 80
+#          initialDelaySeconds: 5
+#          periodSeconds: 3
+#        lifecycle: 
+#          preStop:
+#            exec:
+#              command: ["sh", "-c",
+#              "sleep 10"] 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lifecyclehook-demo-php
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: lifecyclehook-demo-php
+  type: NodePort

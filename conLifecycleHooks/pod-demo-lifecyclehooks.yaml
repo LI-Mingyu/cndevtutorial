@@ -4,6 +4,7 @@ metadata:
   name: lifecyclehooks-demo
   labels:
     app: demo
+    kind: web
 spec:
   containers:
   - name: lifecyclehooks-demo
@@ -17,6 +18,7 @@ spec:
           command: ["bash", "-c",
             "echo 'Start at '$(date -R) >> \
              /contentdir/index.html"]
+      #preStop hook 不会得到执行
       preStop:
         exec:
           command: ["bash", "-c",
@@ -34,7 +36,4 @@ spec:
         mountPath: /usr/share/nginx/html/
   volumes:
     - name: content
-#      emptyDir: {}
-      hostPath:
-        path: /tmp/static-content
-        type: DirectoryOrCreate
+      emptyDir: {}
