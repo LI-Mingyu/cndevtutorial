@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecyclehooks-demo
+  labels:
+    app: demo
+spec:
+  containers:
+  - name: lifecyclehooks-demo
+    image: centos:7
+    command: 
+    - sleep
+    - "30"
+    lifecycle:
+      postStart:
+        exec:
+          command: ["bash", "-c",
+            "echo 'Start at '$(date -R) >> \
+             /contentdir/index.html"]
+      preStop:
+        exec:
+          command: ["bash", "-c",
+            "echo 'Stop at '$(date -R) >> \
+             /contentdir/index.html"]
+    volumeMounts:
+      - name: content
+        mountPath: /contentdir/
+  - name: nginx
+    image: nginx:1.19-alpine-perl
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: content
+        mountPath: /usr/share/nginx/html/
+  volumes:
+    - name: content
+#      emptyDir: {}
+      hostPath:
+        path: /tmp/static-content
+        type: DirectoryOrCreate
