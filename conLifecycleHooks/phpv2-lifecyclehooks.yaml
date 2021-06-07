@@ -6,11 +6,11 @@ spec:
   selector:
     matchLabels:
       app: lifecyclehook-demo-php
-  replicas: 3
+  replicas: 4
   strategy:
       type: RollingUpdate
       rollingUpdate:
-        maxSurge: 1
+        maxSurge: 2
         maxUnavailable: 0
   template:
     metadata:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: my-php
-        image: limingyu007/phpsleepdemo:v2
+        image: limingyu007/phpsleepdemo:v1
 #        readinessProbe:
 #          httpGet:
 #            port: 80

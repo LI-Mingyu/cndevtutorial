@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: php-apache
+        forSvc: my-svc
+    spec:
+      containers:
+      - name: php-apache
+        image: limingyu007/phphpademo:0.2
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+          requests:
+            cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-apache
+  labels:
+    run: php-apache
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: php-apache
+  type: NodePort

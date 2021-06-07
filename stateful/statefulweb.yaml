@@ -18,7 +18,7 @@ metadata:
   name: web
 spec:
   serviceName: "statefulweb"
-  replicas: 2
+  replicas: 8
   selector:
     matchLabels:
       app: statefulweb
@@ -30,6 +30,11 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.19-alpine-perl
+        readinessProbe:
+          httpGet:
+            port: 80
+          initialDelaySeconds: 20
+          periodSeconds: 3
         ports:
         - containerPort: 80
           name: web
