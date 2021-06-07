@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubectl
+  namespace: default
+spec:
+  containers:
+  - name: kubectl
+    image: bitnami/kubectl
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+
