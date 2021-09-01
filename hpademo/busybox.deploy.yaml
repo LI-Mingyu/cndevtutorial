@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox-deploy
+spec:
+  selector:
+    matchLabels:
+      run: busybox-deploy
+  replicas: 1
+  template:
+    metadata:
+      labels: 
+        run: busybox-deploy
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28.4
+        command:
+        - "/bin/sh"
+        - "-c"
+        - "while sleep 0.01; do wget -q -O- http://php-apache; done"
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 200m
+            memory: 64Mi
+

@@ -15,14 +15,16 @@ spec:
     spec:
       containers:
       - name: php-apache
-        image: limingyu007/phphpademo:0.2
+        image: limingyu007/hpademo:v2.2
         ports:
         - containerPort: 80
         resources:
           limits:
             cpu: 200m
+            memory: 128Mi
           requests:
             cpu: 100m
+            memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
