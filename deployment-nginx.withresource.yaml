@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  name: my-nginx-2
 spec:
   selector:
     matchLabels:
-      app: my-web
+      app: my-web-2
       tier: front-end
   replicas: 3
   template:
