@@ -1,0 +1,14 @@
+{{- if and .Values.serviceAccount.create .Values.rbac.create }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+kind: Role
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - get
+{{- end }}

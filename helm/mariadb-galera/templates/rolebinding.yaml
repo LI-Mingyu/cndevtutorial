@@ -1,0 +1,14 @@
+{{- if and .Values.serviceAccount.create .Values.rbac.create }}
+kind: RoleBinding
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "mariadb-galera.serviceAccountName" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "common.names.fullname" . }}
+{{- end }}

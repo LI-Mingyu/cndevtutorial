@@ -1,0 +1,22 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: demoRole2
+  namespace: demo-xinghuo
+rules:
+  - apiGroups: ["*"]
+    resources: ["pods"]
+    verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: demoRoleBinding2
+  namespace: demo-xinghuo
+subjects:
+  - kind: ServiceAccount
+    name: demosa2
+roleRef:
+  kind: Role
+  name: demoRole2
+  apiGroup: rbac.authorization.k8s.io
