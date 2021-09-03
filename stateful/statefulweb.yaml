@@ -18,7 +18,7 @@ metadata:
   name: web
 spec:
   serviceName: "statefulweb"
-  replicas: 8
+  replicas: 5
   selector:
     matchLabels:
       app: statefulweb
