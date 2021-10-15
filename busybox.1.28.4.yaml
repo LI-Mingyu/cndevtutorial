@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: busybox
 spec:
-  serviceAccount: demosa
   containers:
   - name: busybox
     image: busybox:1.28.4

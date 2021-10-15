@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Kubernetes: Run/Debug",
+            "type": "cloudcode.kubernetes",
+            "request": "launch",
+            "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+            "watch": true,
+            "cleanUp": true,
+            "portForward": true
+        },
+        {
+            "name": "Bridge to Kubernetes",
+            "type": "bridge-to-kubernetes.configuration",
+            "request": "launch"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "bridge-to-kubernetes.resource",
+			"type": "bridge-to-kubernetes.resource",
+			"resource": "php-apache-6c45dfc76b-",
+			"resourceType": "pod",
+			"ports": [
+				8090
+			],
+			"targetCluster": "docker-desktop",
+			"targetNamespace": "default",
+			"useKubernetesServiceEnvironmentVariables": false
+		}
+	]
+}
