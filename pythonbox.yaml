@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pythonbox
+spec:
+  containers:
+  - name: pythonbox
+    image: istio/examples-bookinfo-productpage-v1:1.16.2
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "200m"
+    command:
+      - sleep
+      - "100000"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
