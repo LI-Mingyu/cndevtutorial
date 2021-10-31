@@ -13,36 +13,26 @@
 #   limitations under the License.
 
 ###########################################################################
-# Ingress resource (gateway)
+# Ingress resource (nginx ingress)
 ##########################################################################
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: gateway
+  name: bookinfo-ingress
   annotations:
-    kubernetes.io/ingress.class: "istio"
+    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - http:
+  - host: "bookinfo.me"
+    http:
       paths:
-      - path: /productpage
+      - path: /reviews
+        pathType: Prefix
         backend:
-          serviceName: productpage
+          serviceName: reviews
           servicePort: 9080
-      - path: /static/*
+      - path: /details
+        pathType: Prefix
         backend:
-          serviceName: productpage
+          serviceName: details
           servicePort: 9080
-      - path: /login
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /logout
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /api/v1/products.*
-        backend:
-          serviceName: productpage
-          servicePort: 9080
----
