@@ -6,9 +6,12 @@ spec:
   containers:
   - name: busybox
     image: busybox:1.28.4
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "200m"
     command:
       - sleep
       - "100000"
     imagePullPolicy: IfNotPresent
   restartPolicy: Always
-
