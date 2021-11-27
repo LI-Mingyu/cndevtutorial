@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: grape-mpi-worker
+  labels: 
+    app: grape-mpi-worker
+spec: 
+  containers:
+  - name: grape-mpi-worker
+    image: limingyu007/run_app:v0.1
+    command: ["/usr/bin/hydra_pmi_proxy"]
+    args: ["--control-port", "grape-mpi-controller:20000", "--debug", 
+      "--rmk", "user", "--launcher", "manual", "--demux", "poll", "--pgid", "0",
+      "--retries", "10", "--usize", "-2", "--proxy-id", "0"]
+    resources:      
+      limits:
+        memory: "1Gi"
+        cpu: "1"
+
+
+
