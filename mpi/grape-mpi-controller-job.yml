@@ -12,15 +12,12 @@ spec:
 
 ---
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: grape-mpi-controller
 spec:
-  selector:
-    matchLabels:
-      app: grape-mpi
-      type: controller
+  ttlSecondsAfterFinished: 1000
   template:
     metadata:
       labels:
@@ -46,4 +43,5 @@ spec:
             cpu: "1"
         ports:
         - containerPort: 20000
+      restartPolicy: Never
 
