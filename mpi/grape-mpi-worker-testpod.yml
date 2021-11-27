@@ -17,6 +17,7 @@ spec:
       limits:
         memory: "1Gi"
         cpu: "1"
+  restartPolicy: OnFailure
 
 
 
