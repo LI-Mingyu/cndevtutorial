@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grape-mpi-workers
+spec:
+  selector:
+    app: grape-mpi
+    type: workers
+  clusterIP: None
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grape-mpi-workers
+spec:
+  selector:
+    matchLabels:
+      app: grape-mpi
+      type: workers
+  serviceName: grape-mpi-workers
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grape-mpi
+        type: workers
+    spec:
+      containers:
+      - name: grape-mpi
+        image: limingyu007/run_app:v0.1
+        command: ["/usr/bin/hydra_pmi_proxy"]
+        args: ["--control-port", "grape-mpi-controller:20000", "--debug", 
+          "--rmk", "user", "--launcher", "manual", "--demux", "poll", "--pgid", "0",
+          "--retries", "10", "--usize", "-2", "--proxy-id", "0"]
+        resources:      
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+
