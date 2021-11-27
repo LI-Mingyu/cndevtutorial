@@ -1,22 +1,23 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: grape-mpi-testworker
+  name: grape-mpi-testworker-1
   labels: 
     app: grape-mpi
     type: testworker
 spec: 
   containers:
   - name: grape-mpi-testworker
-    image: limingyu007/run_app:v0.1
+    image: limingyu007/run_app:v0.2
     command: ["/usr/bin/hydra_pmi_proxy"]
     args: ["--control-port", "grape-mpi-controller:20000", "--debug", 
       "--rmk", "user", "--launcher", "manual", "--demux", "poll", "--pgid", "0",
-      "--retries", "10", "--usize", "-2", "--proxy-id", "0"]
-    resources:      
-      limits:
-        memory: "1Gi"
-        cpu: "1"
+      "--retries", "10", "--usize", "-2", 
+      "--proxy-id", "$(amqp-consume --url amqp://guest:guest@rabbitmq-service:5672 -q foo -c 1 cat)"]
+#    resources:      
+#      limits:
+#        memory: "1Gi"
+#        cpu: "1"
   restartPolicy: OnFailure
 
 

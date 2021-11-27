@@ -26,10 +26,10 @@ spec:
     spec:
       containers:
       - name: grape-mpi-controller
-        image: limingyu007/run_app:v0.1
+        image: limingyu007/run_app:v0.2
         command: ["mpirun"]
         args: ["-launcher", "manual", "-verbose", 
-          "-disable-hostname-propagation", "-hosts", "1", 
+          "-disable-hostname-propagation", "-hosts", "0,1", 
           "/libgrape-lite-src/build/run_app",  
           "--vfile", "/libgrape-lite-src/dataset/p2p-31.v", 
           "--efile", "/libgrape-lite-src/dataset/p2p-31.e", 
@@ -37,6 +37,11 @@ spec:
         env:
         - name: MPICH_PORT_RANGE
           value: "20000:20100"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["bash","-c", "for i in {0..1}; 
+  do amqp-publish --url=amqp://guest:guest@rabbitmq-service:5672 -r mpiworker -b ${i}; done"]
         resources:
           limits:
             memory: "1Gi"

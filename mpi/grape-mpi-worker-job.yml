@@ -4,6 +4,7 @@ metadata:
   name: grape-mpi-workers
 spec:
   ttlSecondsAfterFinished: 1000
+  parallelism: 4
   template:
     metadata:
       labels:
@@ -12,11 +13,12 @@ spec:
     spec:
       containers:
       - name: grape-mpi
-        image: limingyu007/run_app:v0.1
+        image: limingyu007/run_app:v0.2
         command: ["/usr/bin/hydra_pmi_proxy"]
         args: ["--control-port", "grape-mpi-controller:20000", "--debug", 
           "--rmk", "user", "--launcher", "manual", "--demux", "poll", "--pgid", "0",
-          "--retries", "10", "--usize", "-2", "--proxy-id", "0"]
+          "--retries", "10", "--usize", "-2", 
+          "--proxy-id", "$(amqp-consume --url amqp://guest:guest@rabbitmq-service:5672 -q foo -c 1 cat)"]
         resources:      
           limits:
             memory: "1Gi"
