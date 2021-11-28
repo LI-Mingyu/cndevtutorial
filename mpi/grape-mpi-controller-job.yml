@@ -40,8 +40,10 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["bash","-c", "for i in {0..3}; 
-  do amqp-publish --url=amqp://guest:guest@rabbitmq-service:5672 -r mpiworker -b ${i}; done"]
+              command: ["bash","-c",
+                "for i in {0..3}; do 
+                  amqp-publish --url=amqp://guest:guest@rabbitmq-service:5672 -r mpiworker -b ${i}; 
+                done"]
         resources:
           requests:
             memory: "32Mi"
