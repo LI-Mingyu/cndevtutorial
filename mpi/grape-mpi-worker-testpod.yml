@@ -18,6 +18,9 @@ spec:
       --rmk user --launcher manual --demux poll --pgid 0 \
       --retries 10 --usize -2 --proxy-id $id
     resources:      
+      requests:
+        memory: "32Mi"
+        cpu: "0.1"     
       limits:
         memory: "1Gi"
         cpu: "1"

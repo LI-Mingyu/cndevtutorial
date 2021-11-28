@@ -43,9 +43,12 @@ spec:
               command: ["bash","-c", "for i in {0..3}; 
   do amqp-publish --url=amqp://guest:guest@rabbitmq-service:5672 -r mpiworker -b ${i}; done"]
         resources:
+          requests:
+            memory: "32Mi"
+            cpu: "0.1"     
           limits:
-            memory: "512Mi"
-            cpu: "0.5"
+            memory: "1Gi"
+            cpu: "1"
         ports:
         - containerPort: 20000
       restartPolicy: Never
