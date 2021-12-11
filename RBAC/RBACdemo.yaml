@@ -2,7 +2,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: demoRole
-  namespace: demo-xinghuo
+  namespace: demo-cndev
 rules:
   - apiGroups: ["*"]
     resources: ["*"]
@@ -12,10 +12,10 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: demoRoleBinding
-  namespace: demo-xinghuo
+  namespace: demo-cndev
 subjects:
   - kind: ServiceAccount
-    name: demosa
+    name: default
 roleRef:
   kind: Role
   name: demoRole
