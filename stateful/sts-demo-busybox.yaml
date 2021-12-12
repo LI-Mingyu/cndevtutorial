@@ -18,7 +18,7 @@ spec:
     matchLabels:
       app: sts-demo-busybox
   serviceName: sts-demo-busybox
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -34,4 +34,13 @@ spec:
         command:
           - sleep
           - "100000"
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Mi
+
 

@@ -37,22 +37,3 @@ spec:
   selector:
     app: nginx2
   type: NodePort
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox-hostpath
-spec:
-  containers:
-  - name: busybox
-    image: busybox:1.28.4
-    command: ["sh","-c","while true;
-             do date;sleep 100;done"]
-    volumeMounts:
-    - name: htmlroot
-      mountPath: /root/data-hostpath
-  volumes:
-  - name: htmlroot
-    hostPath:
-      path: /tmp/static-content
-      type: DirectoryOrCreate
