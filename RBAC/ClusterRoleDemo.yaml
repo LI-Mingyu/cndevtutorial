@@ -1,24 +1,21 @@
-kind: Role
+kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: demoRole2
-  namespace: default
+  name: demoClusterRole
 rules:
   - apiGroups: ["*"]
-    resources: ["pods"]
-    verbs: ["*"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
 ---
-kind: RoleBinding
+kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: demoRoleBinding2
-  namespace: default
+  name: demoClusterRoleBinding
 subjects:
   - kind: ServiceAccount
     name: default
     namespace: demo-cndev
 roleRef:
-  kind: Role
-  name: demoRole2
+  kind: ClusterRole
+  name: demoClusterRole
   apiGroup: rbac.authorization.k8s.io
-
