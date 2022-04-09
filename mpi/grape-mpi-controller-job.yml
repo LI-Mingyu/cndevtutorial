@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: grape-mpi-controller
-        image: limingyu007/run_app:v0.2
+        image: limingyu007/run_app:v1.1
         command: ["mpirun"]
         args: ["-launcher", "manual", "-verbose", 
           "-disable-hostname-propagation", "-hosts", "0,1,2,3", 
@@ -40,10 +40,14 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["bash","-c",
-                "for i in {0..3}; do 
+              command: 
+              - bash
+              - "-c"
+              - |
+                amqp-declare-queue --url amqp://guest:guest@rabbitmq-service:5672 -q mpiworker
+                for i in {0..3}; do 
                   amqp-publish --url=amqp://guest:guest@rabbitmq-service:5672 -r mpiworker -b ${i}; 
-                done"]
+                done
         resources:
           requests:
             memory: "32Mi"

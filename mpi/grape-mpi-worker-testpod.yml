@@ -8,13 +8,13 @@ metadata:
 spec: 
   containers:
   - name: grape-mpi-testworker
-    image: limingyu007/run_app:v0.2
+    image: limingyu007/run_app:v1.1
     command: 
     - bash
     - "-c"
     - |
       id=$(amqp-consume --url amqp://guest:guest@rabbitmq-service:5672 -q mpiworker -c 1 cat)
-      /usr/bin/hydra_pmi_proxy --control-port grape-mpi-controller:20000 --debug \
+      hydra_pmi_proxy --control-port grape-mpi-controller:20000 --debug \
       --rmk user --launcher manual --demux poll --pgid 0 \
       --retries 10 --usize -2 --proxy-id $id
     resources:      
