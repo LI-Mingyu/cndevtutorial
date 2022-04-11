@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grape-mpi-workers
+spec:
+  ttlSecondsAfterFinished: 1000
+  completions: 4
+  parallelism: 4
+  completionMode: Indexed
+  template:
+    metadata:
+      labels:
+        app: grape-mpi
+        type: workers
+    spec:
+      containers:
+      - name: grape-mpi
+        image: limingyu007/run_app:v1.1
+        command: 
+        - bash
+        - "-c"
+        - |
+          hydra_pmi_proxy --control-port grape-mpi-controller:20000 --debug \
+          --rmk user --launcher manual --demux poll --pgid 0 \
+          --retries 10 --usize -2 --proxy-id $JOB_COMPLETION_INDEX
+        resources: 
+          requests:
+            memory: "32Mi"
+            cpu: "0.1"     
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+      restartPolicy: Never

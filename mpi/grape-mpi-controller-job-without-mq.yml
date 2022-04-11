@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grape-mpi-controller
+spec:
+  selector:
+    app: grape-mpi
+    type: controller
+  ports:
+  - port: 20000
+    targetPort: 20000
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grape-mpi-controller
+spec:
+  ttlSecondsAfterFinished: 1000
+  template:
+    metadata:
+      labels:
+        app: grape-mpi
+        type: controller
+    spec:
+      containers:
+      - name: grape-mpi-controller
+        image: limingyu007/run_app:v1.1
+        command: ["mpirun"]
+        args: ["-launcher", "manual", "-verbose", 
+          "-disable-hostname-propagation", "-hosts", "0,1,2,3", 
+          "/libgrape-lite-src/build/run_app",  
+          "--vfile", "/libgrape-lite-src/dataset/p2p-31.v", 
+          "--efile", "/libgrape-lite-src/dataset/p2p-31.e", 
+          "--application", "bfs", "--out_prefix", "stdout"]
+        env:
+        - name: MPICH_PORT_RANGE
+          value: "20000:20100"
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "0.1"     
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        ports:
+        - containerPort: 20000
+      restartPolicy: Never
+
