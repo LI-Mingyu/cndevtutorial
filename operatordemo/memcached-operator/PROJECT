@@ -1,0 +1,6 @@
+domain: example.com
+layout:
+- go.kubebuilder.io/v3
+projectName: memcached-operator
+repo: example.com/memcached-operator
+version: "3"
