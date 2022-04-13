@@ -39,9 +39,19 @@ spec:
                 description: Foo is an example field of Memcached. Edit memcached_types.go
                   to remove/update
                 type: string
+              size:
+                description: the number of Memcached instances
+                format: int32
+                type: integer
             type: object
           status:
             description: MemcachedStatus defines the observed state of Memcached
+            properties:
+              nodes:
+                description: the name of the pods which are running Memcached instances
+                items:
+                  type: string
+                type: array
             type: object
         type: object
     served: true

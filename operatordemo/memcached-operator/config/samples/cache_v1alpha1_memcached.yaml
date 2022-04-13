@@ -3,4 +3,4 @@ kind: Memcached
 metadata:
   name: memcached-sample
 spec:
-  # TODO(user): Add fields here
+  size: 2
