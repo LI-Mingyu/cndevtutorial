@@ -1,0 +1,11 @@
+apiVersion: graph.limingyu.io/v1alpha2
+kind: GrapeJob
+metadata:
+  name: grapejob-sample2
+spec:
+  ttl: 100
+  parallelism: 1
+  appExec: "/libgrape-lite-src/build/run_app"
+  appArgs: ["--vfile", "/libgrape-lite-src/dataset/p2p-31.v", 
+          "--efile", "/libgrape-lite-src/dataset/p2p-31.e", 
+          "--application", "bfs", "--out_prefix", "stdout"]

@@ -1,0 +1,145 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.7.0
+  creationTimestamp: null
+  name: grapejobs.graph.limingyu.io
+spec:
+  group: graph.limingyu.io
+  names:
+    kind: GrapeJob
+    listKind: GrapeJobList
+    plural: grapejobs
+    singular: grapejob
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.jobStatus
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: GrapeJob is the Schema for the grapejobs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: GrapeJobSpec defines the desired state of GrapeJob
+            properties:
+              appArgs:
+                items:
+                  type: string
+                type: array
+              appExec:
+                type: string
+              parallelism:
+                default: 1
+                format: int32
+                minimum: 1
+                type: integer
+            required:
+            - appArgs
+            - appExec
+            type: object
+          status:
+            description: GrapeJobStatus defines the observed state of GrapeJob
+            properties:
+              jobStatus:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
+                type: string
+            required:
+            - jobStatus
+            type: object
+        type: object
+    served: true
+    storage: false
+    subresources:
+      status: {}
+  - additionalPrinterColumns:
+    - jsonPath: .status.jobStatus
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        description: GrapeJob is the Schema for the grapejobs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: GrapeJobSpec defines the desired state of GrapeJob
+            properties:
+              appArgs:
+                items:
+                  type: string
+                type: array
+              appExec:
+                type: string
+              parallelism:
+                default: 1
+                format: int32
+                minimum: 1
+                type: integer
+              ttl:
+                default: 0
+                format: int32
+                minimum: 0
+                type: integer
+            required:
+            - appArgs
+            - appExec
+            type: object
+          status:
+            description: GrapeJobStatus defines the observed state of GrapeJob
+            properties:
+              jobStatus:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                  of cluster Important: Run "make" to regenerate code after modifying
+                  this file'
+                type: string
+            required:
+            - jobStatus
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

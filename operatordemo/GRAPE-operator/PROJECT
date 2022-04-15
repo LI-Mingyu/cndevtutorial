@@ -1,0 +1,24 @@
+domain: limingyu.io
+layout:
+- go.kubebuilder.io/v3
+projectName: grape-operator
+repo: limingyu.io/GRAPE-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: limingyu.io
+  group: graph
+  kind: GrapeJob
+  path: limingyu.io/GRAPE-operator/api/v1alpha1
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: limingyu.io
+  group: graph
+  kind: GrapeJob
+  path: limingyu.io/GRAPE-operator/api/v1alpha2
+  version: v1alpha2
+version: "3"

@@ -1,0 +1,64 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs/status
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - graph.limingyu.io
+  resources:
+  - grapejobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - graph.limingyu.io
+  resources:
+  - grapejobs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - graph.limingyu.io
+  resources:
+  - grapejobs/status
+  verbs:
+  - get
+  - patch
+  - update
