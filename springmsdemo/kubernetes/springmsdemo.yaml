@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: springmsdemo
+  labels:
+    app: springmsdemo
+spec:
+  containers:
+    - name: springmsdemo
+      image: limingyu007/springmsdemo:1.0
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: springmsdemo
+spec:
+  selector:
+    app: springmsdemo
+  ports:
+    - port: 80
+      targetPort: 8080 # Default port for image
