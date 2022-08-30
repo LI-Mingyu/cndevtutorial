@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2022-07-08T06:33:11Z"
+  generateName: my-nginx-5c8dd79646-
+  labels:
+    app: my-web
+    pod-template-hash: 5c8dd79646
+    svc: my-svc
+    tier: front-end
+  name: my-nginx-5c8dd79646-5pwx9
+  namespace: a
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: my-nginx-5c8dd79646
+    uid: 2033fc42-837b-4f2f-9924-a4df91fe1045
+  resourceVersion: "6606183"
+  uid: 92d6592e-e2d1-4fd6-a0cc-387ccf20ed7d
+spec:
+  containers:
+  - image: nginx:1.20-alpine-perl
+    imagePullPolicy: IfNotPresent
+    name: my-nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-9kwh5
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: kcodev
+  preemptionPolic: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-9kwh5
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-07-08T06:33:11Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-07-08T06:33:13Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-07-08T06:33:13Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-07-08T06:33:11Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://7ce4ae156323ee9fcd7a0f898d311a7ea2c2c59a0a73fe2199ed92248a731a0e
+    image: nginx:1.20-alpine-perl
+    imageID: docker-pullable://nginx@sha256:b81405635fc395e0366c6d0b19faff22e66614c34f2aeb4fb65a78e02eb42323
+    lastState: {}
+    name: my-nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-07-08T06:33:13Z"
+  hostIP: 172.31.84.113
+  phase: Running
+  podIP: 172.17.0.21
+  podIPs:
+  - ip: 172.17.0.21
+  qosClass: BestEffort
+  startTime: "2022-07-08T06:33:11Z"

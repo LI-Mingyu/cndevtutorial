@@ -1,0 +1,59 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "creationTimestamp": "2022-06-16T17:09:50Z",
+        "deletionTimestamp": "2022-07-07T12:49:22Z",
+        "labels": {
+            "istio-injection": "enabled",
+            "kubernetes.io/metadata.name": "istio-demo"
+        },
+        "name": "istio-demo",
+        "resourceVersion": "6526183",
+        "uid": "664f44e2-02a6-4969-8697-19c203637805"
+    },
+    "spec": {
+        "finalizers": [
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2022-07-07T12:49:28Z",
+                "message": "All resources successfully discovered",
+                "reason": "ResourcesDiscovered",
+                "status": "False",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2022-07-07T12:49:28Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2022-07-07T12:49:28Z",
+                "message": "Failed to delete all resource types, 1 remaining: object *v1alpha1.FlunderList does not implement the protobuf marshalling interface and cannot be encoded to a protobuf message",
+                "reason": "ContentDeletionFailed",
+                "status": "True",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2022-07-07T12:50:12Z",
+                "message": "All content successfully removed",
+                "reason": "ContentRemoved",
+                "status": "False",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2022-07-07T12:49:28Z",
+                "message": "All content-preserving finalizers finished",
+                "reason": "ContentHasNoFinalizers",
+                "status": "False",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}

@@ -1,0 +1,337 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    prometheus.io/path: /stats/prometheus
+    prometheus.io/port: "15020"
+    prometheus.io/scrape: "true"
+    sidecar.istio.io/inject: "false"
+  creationTimestamp: "2022-06-14T07:17:15Z"
+  generateName: istio-ingressgateway-55b6cffcbc-
+  labels:
+    app: istio-ingressgateway
+    chart: gateways
+    heritage: Tiller
+    install.operator.istio.io/owning-resource: unknown
+    istio: ingressgateway
+    istio.io/rev: default
+    operator.istio.io/component: IngressGateways
+    pod-template-hash: 55b6cffcbc
+    release: istio
+    service.istio.io/canonical-name: istio-ingressgateway
+    service.istio.io/canonical-revision: latest
+    sidecar.istio.io/inject: "false"
+  name: istio-ingressgateway-55b6cffcbc-hn7sf
+  namespace: istio-system
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: istio-ingressgateway-55b6cffcbc
+    uid: ba1f44cb-2aaf-4262-80d8-996e89b053c3
+  resourceVersion: "4352960"
+  uid: ccfb7777-3fc4-44a9-b9af-1675e01d0236
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+        weight: 2
+      - preference:
+          matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - arm64
+        weight: 2
+      - preference:
+          matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - ppc64le
+        weight: 2
+      - preference:
+          matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - s390x
+        weight: 2
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+            - arm64
+            - ppc64le
+            - s390x
+  containers:
+  - args:
+    - proxy
+    - router
+    - --domain
+    - $(POD_NAMESPACE).svc.cluster.local
+    - --proxyLogLevel=info
+    - --proxyComponentLogLevel=misc:error
+    - --log_output_level=default:info
+    env:
+    - name: JWT_POLICY
+      value: third-party-jwt
+    - name: PILOT_CERT_PROVIDER
+      value: istiod
+    - name: CA_ADDR
+      value: istiod.istio-system.svc:15012
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: spec.nodeName
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: INSTANCE_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.podIP
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.hostIP
+    - name: SERVICE_ACCOUNT
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: spec.serviceAccountName
+    - name: ISTIO_META_WORKLOAD_NAME
+      value: istio-ingressgateway
+    - name: ISTIO_META_OWNER
+      value: kubernetes://apis/apps/v1/namespaces/istio-system/deployments/istio-ingressgateway
+    - name: ISTIO_META_MESH_ID
+      value: cluster.local
+    - name: TRUST_DOMAIN
+      value: cluster.local
+    - name: ISTIO_META_UNPRIVILEGED_POD
+      value: "true"
+    - name: ISTIO_META_CLUSTER_ID
+      value: Kubernetes
+    image: docker.io/istio/proxyv2:1.14.1
+    imagePullPolicy: IfNotPresent
+    name: istio-proxy
+    ports:
+    - containerPort: 15021
+      protocol: TCP
+    - containerPort: 8080
+      protocol: TCP
+    - containerPort: 8443
+      protocol: TCP
+    - containerPort: 31400
+      protocol: TCP
+    - containerPort: 15443
+      protocol: TCP
+    - containerPort: 15090
+      name: http-envoy-prom
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 30
+      httpGet:
+        path: /healthz/ready
+        port: 15021
+        scheme: HTTP
+      initialDelaySeconds: 1
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      limits:
+        cpu: "2"
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 40Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      privileged: false
+      readOnlyRootFilesystem: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/workload-spiffe-uds
+      name: workload-socket
+    - mountPath: /var/run/secrets/workload-spiffe-credentials
+      name: workload-certs
+    - mountPath: /etc/istio/proxy
+      name: istio-envoy
+    - mountPath: /etc/istio/config
+      name: config-volume
+    - mountPath: /var/run/secrets/istio
+      name: istiod-ca-cert
+    - mountPath: /var/run/secrets/tokens
+      name: istio-token
+      readOnly: true
+    - mountPath: /var/lib/istio/data
+      name: istio-data
+    - mountPath: /etc/istio/pod
+      name: podinfo
+    - mountPath: /etc/istio/ingressgateway-certs
+      name: ingressgateway-certs
+      readOnly: true
+    - mountPath: /etc/istio/ingressgateway-ca-certs
+      name: ingressgateway-ca-certs
+      readOnly: true
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-hf7d2
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: kcodev
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext:
+    fsGroup: 1337
+    runAsGroup: 1337
+    runAsNonRoot: true
+    runAsUser: 1337
+  serviceAccount: istio-ingressgateway-service-account
+  serviceAccountName: istio-ingressgateway-service-account
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - emptyDir: {}
+    name: workload-socket
+  - emptyDir: {}
+    name: workload-certs
+  - configMap:
+      defaultMode: 420
+      name: istio-ca-root-cert
+    name: istiod-ca-cert
+  - downwardAPI:
+      defaultMode: 420
+      items:
+      - fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.labels
+        path: labels
+      - fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.annotations
+        path: annotations
+    name: podinfo
+  - emptyDir: {}
+    name: istio-envoy
+  - emptyDir: {}
+    name: istio-data
+  - name: istio-token
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          audience: istio-ca
+          expirationSeconds: 43200
+          path: istio-token
+  - configMap:
+      defaultMode: 420
+      name: istio
+      optional: true
+    name: config-volume
+  - name: ingressgateway-certs
+    secret:
+      defaultMode: 420
+      optional: true
+      secretName: istio-ingressgateway-certs
+  - name: ingressgateway-ca-certs
+    secret:
+      defaultMode: 420
+      optional: true
+      secretName: istio-ingressgateway-ca-certs
+  - name: kube-api-access-hf7d2
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-14T07:17:15Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-17T03:51:06Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-17T03:51:06Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-14T07:17:15Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://959a4edbb857e3ab21f004fb27701358b86dc1a838dadd6b3a094d6cb351256f
+    image: istio/proxyv2:1.14.1
+    imageID: docker-pullable://istio/proxyv2@sha256:df69c1a7af7c0113424a48f5075ac6d0894123ec926fdb315e849b4f04e39616
+    lastState:
+      terminated:
+        containerID: docker://0169159fe6fc828c0a504ea2c8e3207544f644b5484dd1f7237cb89cb507b489
+        exitCode: 0
+        finishedAt: "2022-06-17T03:50:08Z"
+        reason: Completed
+        startedAt: "2022-06-14T07:17:25Z"
+    name: istio-proxy
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-17T03:50:44Z"
+  hostIP: 172.31.84.113
+  phase: Running
+  podIP: 172.17.0.5
+  podIPs:
+  - ip: 172.17.0.5
+  qosClass: Burstable
+  startTime: "2022-06-14T07:17:15Z"
