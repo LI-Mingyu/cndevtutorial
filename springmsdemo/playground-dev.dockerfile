@@ -4,4 +4,5 @@ ADD pom.xml /app/
 WORKDIR /app
 RUN mvn package 
 EXPOSE 8080
-CMD ["/app/target/msdemo-1.0.jar"] 
+ENTRYPOINT [ "java" ]
+CMD ["-jar", "/app/target/msdemo-1.0.jar"] 
