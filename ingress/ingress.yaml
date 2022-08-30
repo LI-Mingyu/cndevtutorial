@@ -6,7 +6,8 @@ metadata:
     ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
+  - host: www.k8s-fruits.com
+    http:
       paths:
         - path: /apple
           pathType: Prefix
