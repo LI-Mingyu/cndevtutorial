@@ -5,4 +5,4 @@ WORKDIR /app
 RUN mvn package 
 EXPOSE 8080
 ENTRYPOINT [ "java" ]
-CMD ["-jar", "/app/target/msdemo-1.0.jar"] 
+CMD ["-jar", "/app/target/msdemo-2.0.jar"] 
