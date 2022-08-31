@@ -1,22 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  name: spring-demo
 spec:
   selector:
     matchLabels:
-      app: my-web
+      app: spring-demo
       tier: front-end
   replicas: 3
   template:
     metadata:
       labels:
-        app: my-web
+        app: spring-demo
         tier: front-end
-        svc: my-svc
     spec:
       containers:
-      - name: my-nginx
-        image: nginx:1.18-alpine-perl
-        ports:
-        - containerPort: 80
+      - name: springmsdemo
+        image: limingyu007/springmsdemo:2.0
