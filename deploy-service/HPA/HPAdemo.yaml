@@ -20,9 +20,6 @@ spec:
         - containerPort: 80
         resources:
           limits:
-            cpu: 200m
-            memory: 128Mi
-          requests:
             cpu: 100m
             memory: 64Mi
 ---
@@ -38,3 +35,22 @@ spec:
   selector:
     run: php-apache
   type: NodePort
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
