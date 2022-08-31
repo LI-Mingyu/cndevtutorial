@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: fruits-service
+spec:
+  selector:
+    tier: fruits
+  ports:
+    - port: 80
+      targetPort: 5678 # Default port for image
