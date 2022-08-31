@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-requests
+spec:
+  containers:
+  - name: python-requests
+    image: limingyu007/python-requests:1.0
+    command:
+      - sleep
+      - "100000"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
