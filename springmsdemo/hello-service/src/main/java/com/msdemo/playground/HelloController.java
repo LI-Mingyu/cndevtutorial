@@ -1,6 +1,7 @@
 package com.msdemo.playground;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -17,6 +18,12 @@ public class HelloController {
         logger.info("GET");
         return "Hello Spring!\n";
     } 
+
+    @GetMapping("/{id}") 
+    public String hello(@PathVariable("id") String id) {
+        logger.info("GET: " + id);
+        return "Hello " + id + "!\n";
+    }
 
     @PostMapping("/")
     public String aPost() {
