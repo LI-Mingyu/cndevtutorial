@@ -8,43 +8,26 @@
 		<version>2.6.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.limingyu.cndev-tutorial</groupId>
-	<artifactId>msdemo</artifactId>
-	<version>2.1</version>
-	<name>playground</name>
-	<description>Demo project for Spring Boot</description>
+	<groupId>io.limingyu.cndevtutorial</groupId>
+	<artifactId>eureka-server</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>eureka-server</name>
+	<description>eureka-server for the Demo project</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-    	<dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-actuator</artifactId>
-    	</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-  		<dependency>
-    		<groupId>org.apache.logging.log4j</groupId>
-   			<artifactId>log4j-api</artifactId>
-    		<version>2.18.0</version>
-  		</dependency>
-  		<dependency>
-    		<groupId>org.apache.logging.log4j</groupId>
-    		<artifactId>log4j-core</artifactId>
-    		<version>2.18.0</version>
-  		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -57,6 +40,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<plugin>

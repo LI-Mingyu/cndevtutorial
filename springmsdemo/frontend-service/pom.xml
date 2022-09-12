@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.limingyu.cndev-tutorial</groupId>
-	<artifactId>msdemo</artifactId>
-	<version>2.1</version>
-	<name>playground</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>frontend-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>frontend-service</name>
+	<description>A Demo project</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
@@ -20,31 +20,26 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-    	<dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-actuator</artifactId>
-    	</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+ 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-  		<dependency>
-    		<groupId>org.apache.logging.log4j</groupId>
-   			<artifactId>log4j-api</artifactId>
-    		<version>2.18.0</version>
-  		</dependency>
-  		<dependency>
-    		<groupId>org.apache.logging.log4j</groupId>
-    		<artifactId>log4j-core</artifactId>
-    		<version>2.18.0</version>
-  		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -57,6 +52,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<plugin>
