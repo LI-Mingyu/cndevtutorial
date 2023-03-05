@@ -14,4 +14,3 @@ spec:
         - /root/a
       initialDelaySeconds: 30
       periodSeconds: 5
-  restartPolicy: Never

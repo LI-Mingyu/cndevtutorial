@@ -6,11 +6,7 @@ spec:
   containers:
   - name: web-server
     image: nginx:1.19-alpine-perl
-#    ports:
-#    - containerPort: 80
     livenessProbe:
       httpGet:
         port: 80
-      initialDelaySeconds: 3
-      periodSeconds: 3
 
