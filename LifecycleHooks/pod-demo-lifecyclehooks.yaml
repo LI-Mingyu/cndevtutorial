@@ -18,7 +18,7 @@ spec:
           command: ["bash", "-c",
             "echo 'Start at '$(date -R) >> \
              /contentdir/index.html"]
-      #preStop hook 不会得到执行
+      #容器正常运行退出 preStop hook 不会得到执行
       preStop:
         exec:
           command: ["bash", "-c",
