@@ -1,23 +1,118 @@
-kind: Pod
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: springmsdemo
-  labels:
-    app: springmsdemo
+  name: disable-eureka-config
+data:
+  EUREKA_CLIENT_ENABLED: "false"
+  HELLO_SERVICE_URL: "http://hello-service"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellospring
 spec:
-  containers:
-    - name: springmsdemo
-      image: limingyu007/springmsdemo:1.0
+  selector:
+    matchLabels:
+      app: hellospring
+  template:
+    metadata:
+      labels:
+        app: hellospring
+    spec:
+      containers:
+      - name: hellospring
+        image: limingyu007/springmsdemo:2.1
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          failureThreshold: 1
+        envFrom:
+        - configMapRef:
+            name: disable-eureka-config
 
 ---
 
 kind: Service
 apiVersion: v1
 metadata:
-  name: springmsdemo
+  name: hello-service
 spec:
   selector:
-    app: springmsdemo
+    app: hellospring
   ports:
     - port: 80
       targetPort: 8080 # Default port for image
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: limingyu007/springms-demo-frontend:2.1
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          failureThreshold: 1
+        envFrom:
+        - configMapRef:
+            name: disable-eureka-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: NodePort
