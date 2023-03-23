@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: springmsdemo
-        image: limingyu007/springmsdemo:2.0
+        image: limingyu007/springmsdemo:1.0
