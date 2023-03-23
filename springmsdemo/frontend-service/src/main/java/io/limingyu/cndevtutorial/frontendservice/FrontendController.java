@@ -21,7 +21,7 @@ public class FrontendController {
 
     @GetMapping("/")
     public String greeting() {
-        List<ServiceInstance> list = discoveryClient.getInstances("hello-servcie");
+        List<ServiceInstance> list = discoveryClient.getInstances("hello-service");
         if (list != null && list.size() > 0) {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> responseEntity = restTemplate.getForEntity(list.get(0).getUri(), String.class);
