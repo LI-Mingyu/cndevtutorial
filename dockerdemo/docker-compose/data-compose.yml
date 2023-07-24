@@ -1,0 +1,9 @@
+services:
+  datascience-notebook:
+    image: jupyter/datascience-notebook
+    volumes:
+      - /tmp/data:/data
+    command: >
+      bash -c "python -c \"import pandas as pd; 
+      df = pd.read_csv('/data/Passanger_booking_data.csv'); 
+      print(df.head())\""
