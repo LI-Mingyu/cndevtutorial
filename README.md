@@ -6,8 +6,18 @@ The demo code for a WIP book 《写给应用开发者的K8s书》
       
 &emsp;
   在这个背景下，Werner Vogels的名言“You build it. You run it”尤为引人注目，它强调了开发者在构建应用的同时，也需要关注应用的运行和维护，对应用在生产环境中的稳定运行负责。在当前的云计算时代，云原生技术已经成为了支持这一理念的关键。而Kubernetes（简称k8s）作为云原生技术体系的核心，正是帮助应用开发者实现这一目标的强大工具。Kubernetes充分利用了容器化技术的优势，使得应用更易于部署、扩展和管理。通过学习Kubernetes，开发者能够更好地掌握云原生技术及其实践，从而在数字化转型浪潮中提升自身价值并保持竞争力。
-</p>
 
 &emsp;
-中国大数据技术大会（BDTC）2021 上的分享视频：
+  另一方面，从实践角度看，过去几年，很多企业和单位已经构建了基于Kubernetes（K8s）云原生平台或者正在构建云原生平台，“云原生”从当年被热炒的概念转变成了一个个落地项目。然而，在我们也发现，一些云原生平台的实际使用效果并不理想。究其原因，很多用户把云原生平台作为运维工具和基础设施组件引入IT体系，但已有应用的容器化和云原生化应该如何做是符合最佳实践的？云原生应用和微服务架构应用有哪些联系和区别？有了云原生环境以后新应用开发和维护是否能比以往做得更省力高效？这些问题单纯靠运维团队或者基础设施团队已经不能解决了，而对于开发团队或者开发工程师目前这些问题也缺少参考。为此，我们从过去几十个云原生项目中总结经验和教训，以期为工程师们提供一定的帮助。
+</p>
+
+## 中国大数据技术大会（BDTC）2021 上的分享视频：
 [![BDTC 2021 cn app patterns](https://user-images.githubusercontent.com/20229719/147618515-1cc7b6d3-a82c-4764-8181-8935b79730aa.jpg)](https://www.bilibili.com/video/BV1Xb4y1Y7LL?share_source=copy_web)
+
+## 2023 K+软件研发行业峰会上的分享PPT：
+[![](https://github-production-user-asset-6210df.s3.amazonaws.com/20229719/259991343-61f7b5a0-7a6e-4436-9b65-4a14bb5b3253.png)](https://asdfghyjk.oss-cn-beijing.aliyuncs.com/KplusCloudNatvie)
+
+
+
+
+
