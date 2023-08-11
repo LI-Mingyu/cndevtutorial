@@ -13,6 +13,7 @@ kind: Deployment
 metadata:
   name: hellospring
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: hellospring
@@ -68,6 +69,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: frontend
