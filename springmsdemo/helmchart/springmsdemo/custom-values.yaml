@@ -3,11 +3,11 @@
 hellospring:
   image:
     repository: limingyu007/springmsdemo
-    tag: 2.0
-  replicas: 1
+    tag: 2.1
+  replicas: 2
 
 frontend:
   image:
     repository: limingyu007/springms-demo-frontend
-    tag: 2.0
-  replicas: 1
+    tag: 2.1
+  replicas: 3
