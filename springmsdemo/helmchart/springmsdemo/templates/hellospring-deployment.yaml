@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: hellospring
 spec:
-  replicas: 2
+  replicas: {{ .Values.hellospring.replicas }}
   selector:
     matchLabels:
       app: hellospring
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hellospring
-        image: limingyu007/springmsdemo:2.1
+        image: {{ .Values.hellospring.image.repository }}:{{ .Values.hellospring.image.tag }}
         resources:
           limits:
             memory: "500Mi"

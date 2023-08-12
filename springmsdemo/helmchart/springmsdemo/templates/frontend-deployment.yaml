@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: 3
+  replicas: {{ .Values.frontend.replicas }}
   selector:
     matchLabels:
       app: frontend
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: limingyu007/springms-demo-frontend:2.1
+        image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
         resources:
           limits:
             memory: "500Mi"

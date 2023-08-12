@@ -8,8 +8,16 @@ metadata:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
+    - name: wget-hellospring
       image: busybox
-      command: ['wget']
-      args: ['{{ include "springmsdemo.fullname" . }}:{{ .Values.service.port }}']
+      command:
+        - wget
+      args:
+        - "hello-service:80"
+    - name: wget-frontend
+      image: busybox
+      command:
+        - wget
+      args:
+        - "frontend-service:80"
   restartPolicy: Never
