@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-service
+spec:
+  selector:
+    app: hellospring
+  ports:
+    - port: 80
+      targetPort: 8080 # Default port for image

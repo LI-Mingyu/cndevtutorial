@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: disable-eureka-config
+data:
+  EUREKA_CLIENT_ENABLED: "false"
+  HELLO_SERVICE_URL: "http://hello-service"
