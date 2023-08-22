@@ -5,3 +5,4 @@ metadata:
 data:
   EUREKA_CLIENT_ENABLED: "false"
   HELLO_SERVICE_URL: "http://hello-service"
+  

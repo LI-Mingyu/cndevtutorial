@@ -38,3 +38,4 @@ spec:
         envFrom:
         - configMapRef:
             name: disable-eureka-config
+            
