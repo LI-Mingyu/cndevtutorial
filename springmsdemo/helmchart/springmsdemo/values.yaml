@@ -1,13 +1,21 @@
 # values.yaml
 
 hellospring:
-  image:
-    repository: limingyu007/springmsdemo
-    tag: 2.0
   replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
 
 frontend:
-  image:
-    repository: limingyu007/springms-demo-frontend
-    tag: 2.0
   replicas: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi

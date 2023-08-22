@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: hellospring
-        image: {{ .Values.hellospring.image.repository }}:{{ .Values.hellospring.image.tag }}
+        image: limingyu007/springmsdemo:{{ .Chart.AppVersion }}
         resources:
           limits:
-            memory: "500Mi"
-            cpu: "500m"
+            memory: {{ .Values.hellospring.resources.limits.memory }}
+            cpu: {{ .Values.hellospring.resources.limits.cpu }}
         ports:
         - containerPort: 8080
         livenessProbe:

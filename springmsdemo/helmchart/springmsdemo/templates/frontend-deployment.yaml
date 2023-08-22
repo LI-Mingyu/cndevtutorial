@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
+        image: limingyu007/springms-demo-frontend:{{ .Chart.AppVersion }}
         resources:
           limits:
-            memory: "500Mi"
-            cpu: "500m"
+            memory: {{ .Values.frontend.resources.limits.memory }}
+            cpu: {{ .Values.frontend.resources.limits.cpu }}
         ports:
         - containerPort: 8080
         livenessProbe:
