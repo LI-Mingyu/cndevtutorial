@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-eci
+  labels: 
+    alibabacloud.com/eci: "true"   ####
+  annotations:
+#    k8s.aliyun.com/eci-instance-spec: 1.00-1.8Gi
+#    eci-instance-spec不支持小数，上述写法会按默认规格2c4g创建pod
+    k8s.aliyun.com/eci-instance-cpu: "1.00"
+    k8s.aliyun.com/eci-instance-mem: "1.8"
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28.4
+#    resources:
+#      limits:
+#        memory: "1Gi"
+#        cpu: "2"
+    command:
+      - sleep
+      - "100000"
+    # volumeMounts:
+    #   - mountPath: /data
+    #     name: data
+  restartPolicy: Always
+  # volumes:
+  #   - name: data
+  #     nfs:
+  #       path: /wrf-data
+  #       server: 12449a49b5c-dhs72.cn-hongkong.nas.aliyuncs.com
