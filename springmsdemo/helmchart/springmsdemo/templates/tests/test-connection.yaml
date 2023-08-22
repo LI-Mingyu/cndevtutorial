@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "springmsdemo.fullname" . }}-test-connection"
+  labels:
+    {{- include "springmsdemo.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget-hellospring
+      image: busybox
+      command:
+        - wget
+      args:
+        - "hello-service:80"
+    - name: wget-frontend
+      image: busybox
+      command:
+        - wget
+      args:
+        - "frontend-service:80"
+  restartPolicy: Never

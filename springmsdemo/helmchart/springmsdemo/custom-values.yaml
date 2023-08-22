@@ -1,0 +1,7 @@
+# values.yaml
+
+hellospring:
+  replicas: 2
+
+frontend:
+  replicas: 3

@@ -1,0 +1,32 @@
+Thank you for installing the `springmsdemo` Helm chart!
+
+1. hellospring Deployment:
+
+To view the logs of the hellospring deployment pods:
+$ kubectl logs -l app=hellospring
+
+2. frontend Deployment:
+
+To view the logs of the frontend deployment pods:
+$ kubectl logs -l app=frontend
+
+3. Accessing the Services:
+
+- For `hello-service`:
+
+You can access it internally within the cluster using:
+$ kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
+$ wget -qO- hello-service
+
+If you have port-forwarding set up, or if it's exposed externally, you can access via:
+http://[NODE_IP]:[NODE_PORT]
+
+- For `frontend-service`:
+
+Since the service is of type `NodePort`, you can access it externally using:
+http://[NODE_IP]:[NODE_PORT]
+
+Replace `[NODE_IP]` with the IP of your node and `[NODE_PORT]` with the NodePort assigned to the service. You can retrieve NodePort by:
+$ kubectl get svc frontend-service -o=jsonpath='{.spec.ports[0].nodePort}'
+
+Enjoy using the applications!

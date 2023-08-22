@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellospring
+spec:
+  replicas: {{ .Values.hellospring.replicas }}
+  selector:
+    matchLabels:
+      app: hellospring
+  template:
+    metadata:
+      labels:
+        app: hellospring
+    spec:
+      containers:
+      - name: hellospring
+        image: limingyu007/springmsdemo:{{ .Chart.AppVersion }}
+        resources:
+          limits:
+            memory: {{ .Values.hellospring.resources.limits.memory }}
+            cpu: {{ .Values.hellospring.resources.limits.cpu }}
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 2
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          failureThreshold: 1
+        envFrom:
+        - configMapRef:
+            name: disable-eureka-config
+            
