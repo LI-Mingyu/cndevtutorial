@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.limingyu.cndev-tutorial</groupId>
 	<artifactId>frontend-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2.2</version>
 	<name>frontend-service</name>
 	<description>A Demo project</description>
 	<properties>
@@ -42,6 +42,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+    		<artifactId>resilience4j-spring-boot2</artifactId>
+    		<version>1.7.0</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
