@@ -5,7 +5,7 @@ WORKDIR /app
 RUN mvn package 
 
 FROM gcr.io/distroless/java:11
-COPY --from=build-env /app/target/msdemo-2.1.jar /app/
+COPY --from=build-env /app/target/msdemo-2.2.jar /app/
 WORKDIR /app
 EXPOSE 8080
-CMD ["msdemo-2.1.jar"]
+CMD ["msdemo-2.2.jar"]
